@@ -3,562 +3,631 @@
 <head>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <style>
-@import url('https://fonts.googleapis.com/css?family=Syne:wght@400;500;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,400&display=swap');
-*{margin:0;padding:0;box-sizing: border-box}
- :root{
---navy: #0A1628;--navy2:#0F2040;--navy3:#162055;
---green:#00068F;--green2:#00887A;--green3: #00956A;
---teal:#0DCEBC;--tea12:#09A898;
---red: #FF3B3B;--red2:#CC2A2A;
---text: #E8F0FF;--muted:#789388;--subtle:#3A5070;
---card:#111635;--card2:#0E1A2E;
+@import url('https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,400&display=swap');
+*{margin:0;padding:0;box-sizing:border-box}
+:root{
+--navy:#0A1628;--navy2:#0F2040;--navy3:#162D55;
+--green:#00D68F;--green2:#00B87A;--green3:#00956A;
+--teal:#0DCEBC;--teal2:#09A898;
+--red:#FF3B3B;--red2:#CC2A2A;
+--text:#E8F0FF;--muted:#7B93B8;--subtle:#3A5070;
+--card:#111E35;--card2:#0E1A2E;
 --border:#1E3050;
 }
-body{background: var(--navy);color:var(--text); font-family: 'DM Sans', sans-serif;min-height:100vh; overflow-x:hidden}
-h1, h2,h3, h4, .logo {font-family: 'Syne', sans-serif}
+body{background:var(--navy);color:var(--text);font-family:'DM Sans',sans-serif;min-height:100vh;overflow-x:hidden}
+h1,h2,h3,h4,.logo{font-family:'Syne',sans-serif}
 /* NAV */
-nav {background: var(--navy2); border-bottom:1px solid var(--border); padding:0 24px;height:60px; display: flex; align-items:center; justify-content:space-between;position:sticky;top:0;z-index:100}
-.logo {font-size:18px; font-weight:800;color:var(--teal); letter-spacing:-0.5px}
+nav{background:var(--navy2);border-bottom:1px solid var(--border);padding:0 24px;height:70px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:100}
+.logo-container{display:flex;align-items:center;gap:10px}
+.logo-shield{width:24px;height:24px;color:var(--green);flex-shrink:0}
+.logo-text-group{display:flex;flex-direction:column}
+.logo{font-size:18px;font-weight:800;color:var(--green);letter-spacing:-0.5px;line-height:1.1}
 .logo span{color:var(--text)}
-.nav-tabs{display: flex; gap:4px}
-.tab {background:none; border:none; color:var(--muted); font-family: 'DM Sans', sans-serif; font-size:13px;padding:6px 14px; border-radius:6px;cursor:pointer;transition: all 0.25s}
-.tab.active,.tab:hover{background: var(--navy3);color:var(--text)}
-.tab.active{color:var(--teal)}
+.tagline{font-size:11px;color:var(--muted);font-weight:400;letter-spacing:0.2px;font-family:'DM Sans',sans-serif}
+.nav-tabs{display:flex;gap:4px}
+.tab{background:none;border:none;color:var(--muted);font-family:'DM Sans',sans-serif;font-size:13px;padding:6px 14px;border-radius:6px;cursor:pointer;transition:all 0.2s}
+.tab.active,.tab:hover{background:var(--navy3);color:var(--text)}
+.tab.active{color:var(--green)}
 /* PAGES */
-.page {display: none; padding:24px;max-width:900px;margin:0 auto}
+.page{display:none;padding:24px;max-width:900px;margin:0 auto}
 .page.active{display:block}
 /* CARDS */
-.card{background: var(--card); border:1px solid var(--border); border-radius: 16px; padding:20px}
-.card2{background: var(--card2); border:1px solid var(--border); border-radius:12px;padding:16px}
+.card{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:20px}
+.card2{background:var(--card2);border:1px solid var(--border);border-radius:12px;padding:16px}
 /* KPI BIG NUMBER */
-.kpi-number{font-family: 'Syne', sans-serif; font-size:52px; font-weight:800;color:var(--teal); line-height:1}
-.kpi-label{font-size:12px; color:var(--muted); text-transform:uppercase; letter-spacing:1px; margin-bottom: 6px}
+.kpi-number{font-family:'Syne',sans-serif;font-size:52px;font-weight:800;color:var(--green);line-height:1}
+.kpi-label{font-size:12px;color:var(--muted);text-transform:uppercase;letter-spacing:1px;margin-bottom:6px}
 /* PROGRESS BAR */
-.progress-wrap{background: var(--navy3); border-radius:99px; height: 8px; overflow:hidden;margin:12px 0 6px}
-.progress-fill{height:100%;border-radius: 99px; background: linear-gradient(90deg, var(--green), var(--teal)); transition:width 0.6s ease}
-.progress-fill.warn{background: linear-gradient(90deg, #F5A623, #FF3B3B)}
+.progress-wrap{background:var(--navy3);border-radius:99px;height:8px;overflow:hidden;margin:12px 0 6px}
+.progress-fill{height:100%;border-radius:99px;background:linear-gradient(90deg,var(--green),var(--teal));transition:width 0.6s ease}
+.progress-fill.warn{background:linear-gradient(90deg,#F5A623,#FF3B3B)}
 /* BUTTONS */
-.btn{border:none; border-radius: 10px; padding:12px 20px; font-family: 'DM Sans', sans-serif; font-size:14px; font-weight:500; cursor:pointer;transition:all 0.15s;display:inline-flex;align-items:center; gap:8px}
-.btn-green {background: var(--green); color: #fff}
-.btn-green:hover{background: var(--green2); transform: translateY(-1px)}
-.btn-red {background:var(--red);color:#fff;width:100%; justify-content:center;font-size: 15px; font-weight:600; padding: 16px}
-.btn-red:hover{background:var(--red2); transform:translateY(-1px)}
-.btn-outline{background:transparent; border:1px solid var(--border); color:var(--text)}
-.btn-outline:hover{border-color:var(--teal); color:var(--teal)}
-.btn-copy{background: var(--teal); color:#001A0D; padding:8px 14px; border-radius: 8px; font-size:13px}
-.btn-copy.copied {background: var(--teal); color:#fff}
+.btn{border:none;border-radius:10px;padding:12px 20px;font-family:'DM Sans',sans-serif;font-size:14px;font-weight:500;cursor:pointer;transition:all 0.15s;display:inline-flex;align-items:center;gap:8px}
+.btn-green{background:var(--green);color:#001A0D} .btn-green:hover{background:var(--green2);transform:translateY(-1px)}
+.btn-red{background:var(--red);color:#fff;width:100%;justify-content:center;font-size:15px;font-weight:600;padding:16px}
+.btn-red:hover{background:var(--red2);transform:translateY(-1px)}
+.btn-outline{background:transparent;border:1px solid var(--border);color:var(--text)}
+.btn-outline:hover{border-color:var(--green);color:var(--green)}
+.btn-copy{background:var(--green);color:#001A0D;padding:8px 14px;border-radius:8px;font-size:13px}
+.btn-copy.copied{background:var(--teal);color:#fff}
 /* BADGES */
-.badge{display:inline-flex; align-items:center; gap:4px;padding:3px 10px; border-radius:99px; font-size:11px;font-weight:500}
-.badge-green {background:rgba(0,214,143,0.12); color:#00D68F; border:1px solid rgba(0,214,143,0.25)}
-.badge-red{background: rgba(255, 59,59,0.12); color:var(--red); border:1px solid rgba(255,59,59,0.25)}
-.badge-blue{background: rgba(13,206,188,0.12); color:var(--teal); border:1px solid rgba(13,206,188,0.25)}
+.badge{display:inline-flex;align-items:center;gap:4px;padding:3px 10px;border-radius:99px;font-size:11px;font-weight:500}
+.badge-green{background:rgba(0,214,143,0.12);color:var(--green);border:1px solid rgba(0,214,143,0.25)}
+.badge-red{background:rgba(255,59,59,0.12);color:var(--red);border:1px solid rgba(255,59,59,0.25)}
+.badge-blue{background:rgba(13,206,188,0.12);color:var(--teal);border:1px solid rgba(13,206,188,0.25)}
 /* GRID */
-.grid2{display:grid; grid-template-columns:1fr 1fr;gap:16px}
-.grid3 {display:grid; grid-template-columns:1fr 1fr 1fr; gap:12px}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.grid3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px}
 /* LINK ROW */
-.link-row{display: flex; align-items:center;gap:10px;padding:12px 0;border-bottom:1px solid var(--border)}
+.link-row{display:flex;align-items:center;gap:10px;padding:12px 0;border-bottom:1px solid var(--border)}
 .link-row:last-child{border-bottom:none}
-.platform-icon {width: 36px; height: 36px; border-radius:8px; display: flex; align-items:center; justify-content:center;font-size: 16px; font-weight:700; flex-shrink:0}
-.link-url{font-size:12px; color:var(--muted); font-family:monospace; flex:1;overflow:hidden;text-overflow:ellipsis; white-space:nowrap}
+.platform-icon{width:36px;height:36px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:16px;font-weight:700;flex-shrink:0}
+.link-url{font-size:12px;color:var(--muted);font-family:monospace;flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 /* AUDIENCE TABLE */
-.table-responsive { width: 100%; overflow-x: auto; -webkit-overflow-scrolling: touch; margin-top: 10px; }
-table {width: 100%; border-collapse:collapse; font-size:13px}
-th {text-align:left;padding:10px 12px; color:var(--muted); font-weight: 500; border-bottom:1px solid var(--border); font-size:11px; text-transform:uppercase; letter-spacing:0.5px}
-td{padding:12px;border-bottom:1px solid rgba(30,48,80,0.5); color:var(--text)}
+.table-responsive{width:100%;overflow-x:auto;-webkit-overflow-scrolling:touch}
+table{width:100%;border-collapse:collapse;font-size:13px}
+th{text-align:left;padding:10px 12px;color:var(--muted);font-weight:500;border-bottom:1px solid var(--border);font-size:11px;text-transform:uppercase;letter-spacing:0.5px}
+td{padding:12px;border-bottom:1px solid rgba(30,48,80,0.5);color:var(--text)}
 tr:last-child td{border-bottom:none}
-tr:hover td{background: rgba(255,255,255,0.02)}
+tr:hover td{background:rgba(255,255,255,0.02)}
 /* SYNC PAGE */
-.sync-hero {text-align:center; padding: 40px 20px 30px}
-.sync-hero h1{font-size: 28px; font-weight:800; line-height:1.2;margin-bottom:12px}
-.sync-hero p{color:var(--muted); font-size:15px; max-width:380px;margin:0 auto}
-.creator-avatar{width:72px;height:72px; border-radius: 50%; background: linear-gradient(135deg, var(--green), var(--teal)); display: flex;align-items:center; justify-content:center; font-size:24px; font-weight:800;color:#001A0D; margin:0 auto 16px; font-family: 'Syne', sans-serif}
-.oauth-btn {width:100%; display: flex; align-items:center; justify-content:center; gap: 10px; padding: 16px; border-radius: 12px;border:none; font-family: 'DM Sans', sans-serif; font-size: 15px; font-weight:600;cursor:pointer; transition:all 0.25;margin-bottom:10px}
-.oauth-tiktok{background:#010101;color:#fff; border:1px solid #333}
-.oauth-ig{background: linear-gradient(135deg, #405DE6, #5851DB, #833AB4, #C13584, #E1306C, #FD1D1D); color:#fff}
+.sync-hero{text-align:center;padding:40px 20px 30px}
+.sync-hero h1{font-size:28px;font-weight:800;line-height:1.2;margin-bottom:12px}
+.sync-hero p{color:var(--muted);font-size:15px;max-width:380px;margin:0 auto}
+.creator-avatar{width:72px;height:72px;border-radius:50%;background:linear-gradient(135deg,var(--green),var(--teal));display:flex;align-items:center;justify-content:center;font-size:24px;font-weight:800;color:#001A0D;margin:0 auto 16px;font-family:'Syne',sans-serif}
+.oauth-btn{width:100%;display:flex;align-items:center;justify-content:center;gap:10px;padding:16px;border-radius:12px;border:none;font-family:'DM Sans',sans-serif;font-size:15px;font-weight:600;cursor:pointer;transition:all 0.2s;margin-bottom:10px}
+.oauth-tiktok{background:#010101;color:#fff;border:1px solid #333}
+.oauth-ig{background:linear-gradient(135deg,#405DE6,#5851DB,#833AB4,#C13584,#E1306C,#FD1D1D);color:#fff}
 .oauth-yt{background:#FF0000;color:#fff}
 /* PRICING */
-.pricing-card{background: var(--card); border:1px solid var(--border); border-radius:16px;padding:24px;position:relative; overflow:hidden}
-.pricing-card.featured {border-color:var(--teal); border-width:2px}
-.price-big {font-family: 'Syne', sans-serif;font-size:42px;font-weight:800;color:var(--teal)}
-.price-period {font-size:14px;color:var(--muted)}
+.pricing-card{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:24px;position:relative;overflow:hidden} .pricing-card.featured{border-color:var(--green);border-width:2px}
+.price-big{font-family:'Syne',sans-serif;font-size:42px;font-weight:800;color:var(--green)}
+.price-period{font-size:14px;color:var(--muted)}
 .feature-list{list-style:none;margin:16px 0}
-.feature-list li{display: flex;align-items:center; gap:8px; padding:7px 0;font-size:14px;color:var(--muted); border-bottom:1px solid rgba(30,48,80,0.4)}
+.feature-list li{display:flex;align-items:center;gap:8px;padding:7px 0;font-size:14px;color:var(--muted);border-bottom:1px solid rgba(30,48,80,0.4)}
 .feature-list li:last-child{border:none}
-.feature-list li.check {color:var(--teal); font-size:16px}
-.feature-list li.lock{color:var(--subtle); font-size:16px}
-.popular-badge {position:absolute; top:16px;right:16px; background: var(--teal); color:#001A0D; font-size:11px;font-weight:700; padding: 4px 10px; border-radius:99px}
+.feature-list li .check{color:var(--green);font-size:16px}
+.feature-list li .lock{color:var(--subtle);font-size:16px}
+.popular-badge{position:absolute;top:16px;right:16px;background:var(--green);color:#001A0D;font-size:11px;font-weight:700;padding:4px 10px;border-radius:99px}
 /* MODAL */
-.modal-overlay{display:none;position:fixed; inset:0; background:rgba(0,0,0,0.7);z-index: 200; align-items:center; justify-content:center; padding:20px}
-.modal-overlay.open{display: flex}
-.modal {background: var(--navy2); border:1px solid var(--border); border-radius: 20px; padding: 28px;max-width: 460px;width:100%}
-.modal h3{font-size:20px;font-weight:700; margin-bottom:8px}
-.cost-highlight{background:rgba(255,59,59,0.1); border:1px solid rgba(255,59,59,0.3); border-radius:10px;padding: 16px;margin:16px 0;text-align:center}
-.cost-amount {font-family: 'Syne', sans-serif; font-size:32px;font-weight:800;color:var(--red)}
+.modal-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.7);z-index:200;align-items:center;justify-content:center;padding:20px}
+.modal-overlay.open{display:flex}
+.modal{background:var(--navy2);border:1px solid var(--border);border-radius:20px;padding:28px;max-width:460px;width:100%}
+.modal h3{font-size:20px;font-weight:700;margin-bottom:8px}
+.cost-highlight{background:rgba(255,59,59,0.1);border:1px solid rgba(255,59,59,0.3);border-radius:10px;padding:16px;margin:16px 0;text-align:center}
+.cost-amount{font-family:'Syne',sans-serif;font-size:32px;font-weight:800;color:var(--red)}
 /* ALERT COMPOSER */
-.tab-bar{display: flex; gap: 2px; background: var(--navy3); padding: 4px; border-radius:10px;margin-bottom:16px}
-.msg-tab{flex:1; padding:7px; text-align:center; border-radius:7px;font-size:13px; cursor:pointer; background:none; border:none;color:var(--muted); font-family: 'DM Sans', sans-serif;transition:all 0.25s}
-.msg-tab.active {background: var(--card); color:var(--text)}
-textarea {width: 100%; background: var(--card2); border:1px solid var(--border); border-radius:10px; padding: 12px; color:var(--text); font-family: 'DM Sans', sans-serif; font-size:14px; resize: none;outline: none}
-textarea:focus {border-color:var(--teal)}
-.char-counter{font-size:11px;color:var(--muted); text-align:right; margin-top:4px}
+.tab-bar{display:flex;gap:2px;background:var(--navy3);padding:4px;border-radius:10px;margin-bottom:16px}
+.msg-tab{flex:1;padding:7px;text-align:center;border-radius:7px;font-size:13px;cursor:pointer;background:none;border:none;color:var(--muted);font-family:'DM Sans',sans-serif;transition:all 0.2s}
+.msg-tab.active{background:var(--card);color:var(--text)}
+textarea{width:100%;background:var(--card2);border:1px solid var(--border);border-radius:10px;padding:12px;color:var(--text);font-family:'DM Sans',sans-serif;font-size:14px;resize:none;outline:none}
+textarea:focus{border-color:var(--green)}
+.char-counter{font-size:11px;color:var(--muted);text-align:right;margin-top:4px}
 /* RECOVERY PAGE */
-.recovery{text-align:center; padding: 40px 20px}
-.success-icon{width:80px;height:80px; border-radius: 50%; background:rgba(0,214,143, 0.15); border:2px solid var(--teal); display: flex; align-items:center; justify-content:center; margin:0 auto 20px; font-size:36px}
-.countdown{font-family: 'Syne', sans-serif;font-size:48px;font-weight:800;color:var(--teal)}
+.recovery{text-align:center;padding:40px 20px}
+.success-icon{width:80px;height:80px;border-radius:50%;background:rgba(0,214,143,0.15);border:2px solid var(--green);display:flex;align-items:center;justify-content:center;margin:0 auto 20px;font-size:36px}
+.countdown{font-family:'Syne',sans-serif;font-size:48px;font-weight:800;color:var(--green)}
 /* SECTION TITLES */
-.section-title{font-size:11px;text-transform:uppercase; letter-spacing:1.5px;color:var(--muted); margin-bottom: 12px; font-weight:600}
+.section-title{font-size:11px;text-transform:uppercase;letter-spacing:1.5px;color:var(--muted);margin-bottom:12px;font-weight:600}
 /* DIVIDER */
-hr{border:none; border-top: 1px solid var(--border); margin:20px 0}
-.dot{width:8px; height: 8px; border-radius: 50%; background: var(--teal); display:inline-block}
-.dot.pulse{animation: pulse 2s infinite}
-@keyframes pulse{0%, 100%{opacity:1;transform: scale(1)} 50% {opacity:0.5;transform:scale(1.3)}}
+hr{border:none;border-top:1px solid var(--border);margin:20px 0}
+.dot{width:8px;height:8px;border-radius:50%;background:var(--green);display:inline-block}
+.dot.pulse{animation:pulse 2s infinite}
+@keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:0.5;transform:scale(1.3)}}
 .slide-in{animation:slideIn 0.4s ease}
-@keyframes slideIn{from{opacity:0;transform: translateY(10px)}to{opacity:1; transform: translateY(0)}}
-input[type=text], input[type=email], input[type=tel] {width:100%;background: var(--card2); border: 1px solid var(--border); border-radius:10px;padding:12px 14px;color:var(--text); font-family: 'DM Sans', sans-serif; font-size:14px; outline: none; margin-bottom:10px}
-input:focus{border-color:var(--teal)}
-.opt-btn {flex:1; padding:14px; border-radius: 10px; border:1px solid var(--border); background: var(--card2); color:var(--text); font-family: 'DM Sans', sans-serif; font-size: 14px; cursor:pointer;transition: all 0.25s}
-.opt-btn:hover,.opt-btn.selected{border-color:var(--teal); background:rgba(0,214,143,0.08); color:var(--teal)}
-.step {display:none}
-.step.active {display:block}
+@keyframes slideIn{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+input[type=text],input[type=email],input[type=tel]{width:100%;background:var(--card2);border:1px solid var(--border);border-radius:10px;padding:12px 14px;color:var(--text);font-family:'DM Sans',sans-serif;font-size:14px;outline:none;margin-bottom:10px} input:focus{border-color:var(--green)}
+.opt-btn{flex:1;padding:14px;border-radius:10px;border:1px solid var(--border);background:var(--card2);color:var(--text);font-family:'DM Sans',sans-serif;font-size:14px;cursor:pointer;transition:all 0.2s}
+.opt-btn:hover,.opt-btn.selected{border-color:var(--green);background:rgba(0,214,143,0.08);color:var(--green)}
+.step{display:none}
+.step.active{display:block}
 
-/* MOBILE RESPONSIVE OPTIMIZATIONS */
+/* MOBILE VIEW / RESPONSIVITY FIXES */
 @media(max-width:768px){
-  nav { padding: 0 12px; flex-direction: column; height: auto; padding-bottom: 10px; }
-  .logo { margin-top: 10px; margin-bottom: 8px; }
-  .nav-tabs { width: 100%; overflow-x: auto; white-space: nowrap; -webkit-overflow-scrolling: touch; padding-bottom: 4px; }
-  .tab { padding: 6px 10px; }
-  .grid2, .grid3 { grid-template-columns: 1fr; gap: 12px; }
-  .kpi-number { font-size:38px; }
-  .card { padding: 16px; }
-  .sync-hero h1 { font-size: 22px; }
-  .price-big { font-size: 36px; }
+nav{flex-direction:column;height:auto;padding:14px;gap:12px;align-items:flex-start}
+.nav-tabs{width:100%;overflow-x:auto;padding-bottom:4px;-webkit-overflow-scrolling:touch}
+.tab{padding:6px 10px;flex-shrink:0}
+.page{padding:16px}
+.grid2,.grid3{grid-template-columns:1fr;gap:12px}
+.kpi-number{font-size:38px}
+.link-row{flex-wrap:wrap;gap:8px}
+.link-url{width:100%;flex:none;order:3;margin-top:2px}
 }
 </style>
 </head>
 <body>
 <nav>
-  <div class="logo">We<span>FollowBack</span></div>
-  <div class="nav-tabs">
-    <button class="tab active" onclick="showPage('dashboard')">Dashboard</button>
-    <button class="tab" onclick="showPage('audience')">Audience</button>
-    <button class="tab" onclick="showPage('alert')">Alert</button>
-    <button class="tab" onclick="showPage('sync')">Sync Page</button>
-    <button class="tab" onclick="showPage('pricing')">Pricing</button>
-    <button class="tab" onclick="showPage('recovery')">Recovery</button>
-  </div>
+<div class="logo-container">
+<!-- Shield icon reference from image_3237a1.png -->
+<svg class="logo-shield" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+<div class="logo-text-group">
+<div class="logo">We<span>FollowBack</span></div>
+<div class="tagline">Never lose your audience</div>
+</div>
+</div>
+<div class="nav-tabs">
+<button class="tab active" onclick="showPage('dashboard')">Dashboard</button>
+<button class="tab" onclick="showPage('audience')">Audience</button>
+<button class="tab" onclick="showPage('alert')">Alert</button>
+<button class="tab" onclick="showPage('sync')">Sync Page</button>
+<button class="tab" onclick="showPage('pricing')">Pricing</button>
+<button class="tab" onclick="showPage('recovery')">Recovery</button>
+</div>
 </nav>
-
+<!-- ═══════════════ DASHBOARD ═══════════════ -->
 <div id="page-dashboard" class="page active slide-in">
-  <div class="card" style="margin-bottom:16px">
-    <div style="display: flex;align-items:center; justify-content: space-between;margin-bottom:20px; flex-wrap: wrap; gap: 12px;">
-      <div>
-        <div class="kpi-label">Total Secured Audience Records</div>
-        <div class="kpi-number">3,247</div>
-        <div style="font-size:13px;color:var(--muted); margin-top:6px"> 84 new this week</div>
-      </div>
-      <div style="text-align:right">
-        <span class="badge badge-green"><span class="dot pulse"></span> Insurance Active</span>
-        <div style="font-size:12px;color:var(--muted); margin-top:8px">Plan: Pro</div>
-      </div>
-    </div>
-    <div class="section-title">Plan Usage</div>
-    <div style="display: flex; justify-content: space-between; font-size:13px;color:var(--muted)">
-      <span>3,247/5,000 Records Used</span><span>64.9%</span>
-    </div>
-    <div class="progress-wrap"><div class="progress-fill" style="width:64.9%"></div></div>
-    <div style="font-size:12px;color:var(--muted)">1,753 slots remaining <a href="#" onclick="showPage('pricing'); return false" style="color:var(--teal); text-decoration: none">Upgrade for unlimited</a></div>
-    <hr>
-    <button class="btn btn-red" onclick="openAlertModal()">
-      Launch Emergency Audience Alert
-    </button>
-  </div>
-
-  <div class="grid3" style="margin-bottom: 16px">
-    <div class="card2" style="text-align:center">
-      <div style="font-size:11px;color:var(--muted); text-transform:uppercase; letter-spacing:1px;margin-bottom: 6px">Email Access</div>
-      <div style="font-family: 'Syne', sans-serif; font-size:28px; font-weight:700;color:var(--teal)">3,247</div>
-    </div>
-    <div class="card2" style="text-align:center">
-      <div style="font-size:11px; color:var(--muted); text-transform:uppercase; letter-spacing:1px; margin-bottom: 6px">SMS / WhatsApp</div>
-      <div style="font-family: 'Syne', sans-serif; font-size:28px; font-weight:700;color:var(--teal)">1,891</div>
-    </div>
-    <div class="card2" style="text-align:center">
-      <div style="font-size:11px; color:var(--muted); text-transform:uppercase; letter-spacing:1px; margin-bottom: 6px">Platforms</div>
-      <div style="font-family: 'Syne', sans-serif; font-size:28px; font-weight:700;color:var(--text)">4</div>
-    </div>
-  </div>
-
-  <div class="card">
-    <div style="display: flex;align-items:center; justify-content: space-between;margin-bottom:16px; flex-wrap: wrap; gap: 8px;">
-      <h3 style="font-size:16px;font-weight:700">Share Your WefollowBack Link</h3>
-      <span class="badge badge-blue">Zero-Friction Sharing</span>
-    </div>
-    <div class="link-row">
-      <div class="platform-icon" style="background: #010101; color:#fff">TK</div>
-      <div style="flex: 1; min-width: 0;">
-        <div style="font-size: 13px; font-weight: 500; margin-bottom:2px">TikTok</div>
-        <div class="link-url">wefollowback.com/u/alexcreator?src=tiktok</div>
-      </div>
-      <button class="btn btn-copy" onclick="copyLink(this, 'wefollowback.com/u/alexcreator?src=tiktok')">Copy</button>
-    </div>
-    <div class="link-row">
-      <div class="platform-icon" style="background: linear-gradient(135deg, #833AB4, #E1306C);color:#fff">IG</div>
-      <div style="flex: 1; min-width: 0;">
-        <div style="font-size:13px;font-weight: 500; margin-bottom:2px">Instagram</div>
-        <div class="link-url">wefollowback.com/u/alexcreator?src=instagram</div>
-      </div>
-      <button class="btn btn-copy" onclick="copyLink(this, 'wefollowback.com/u/alexcreator?src=instagram')">Copy</button>
-    </div>
-    <div class="link-row">
-      <div class="platform-icon" style="background: #FF0000; color:#fff">YT</div>
-      <div style="flex: 1; min-width: 0;">
-        <div style="font-size: 13px; font-weight: 500; margin-bottom:2px">YouTube</div>
-        <div class="link-url">wefollowback.com/u/alexcreator?src=youtube</div>
-      </div>
-      <button class="btn btn-copy" onclick="copyLink(this, 'wefollowback.com/u/alexcreator?src=youtube')">Copy</button>
-    </div>
-    <div class="link-row" style="background:rgba(0,214,143,0.04); border-radius: 10px; padding: 12px; border:1px dashed rgba(0,214,143,0.3); margin-top:8px">
-      <div class="platform-icon" style="background: var(--navy3); color: var(--teal); font-size: 20px">+</div>
-      <div style="flex:1">
-        <div style="font-size:13px;font-weight:500">Add Custom Platform</div>
-        <div style="font-size:12px; color:var(--muted)">Twitch, X/Twitter, Substack...</div>
-      </div>
-      <button class="btn btn-outline" style="font-size:13px;padding: 8px 14px">Add Link</button>
-    </div>
-  </div>
+<!-- Contextual Explainer Banner (Audience Insurance Identity) -->
+<div class="card2" style="background:rgba(0,214,143,0.05);border-color:rgba(0,214,143,0.2);margin-bottom:16px;display:flex;align-items:center;gap:12px">
+<div style="font-size:24px;color:var(--green)">🛡️</div>
+<div style="font-size:13px;line-height:1.4">
+<strong>Your Audience Insurance Policy is Active.</strong> WeFollowBack securely syncs and protects your cross-platform relationships so that you can instantly broadcast emergency text, email, or WhatsApp updates if your primary social accounts are ever banned, hacked, or restricted.
 </div>
-
+</div>
+<!-- Status Card -->
+<div class="card" style="margin-bottom:16px">
+<div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:20px;flex-wrap:wrap;gap:12px">
+<div>
+<div class="kpi-label">Total Secured Audience Records</div>
+<div class="kpi-number">3,247</div>
+<div style="font-size:13px;color:var(--muted);margin-top:6px">↑ 84 new this week</div>
+</div>
+<div style="text-align:right">
+<span class="badge badge-green"><span class="dot pulse"></span> Insurance
+Active</span>
+<div style="font-size:12px;color:var(--muted);margin-top:8px">Plan: Pro</div>
+</div>
+</div>
+<div class="section-title">Plan Usage</div>
+<div style="display:flex;justify-content:space-between;font-size:13px;color:var(--muted)">
+<span>3,247 / 5,000 Records Used</span><span>64.9%</span>
+</div>
+<div class="progress-wrap"><div class="progress-fill" style="width:64.9%"></div></div>
+<div style="font-size:12px;color:var(--muted)">1,753 slots remaining — <a href="#"
+onclick="showPage('pricing');return false" style="color:var(--green);text-decoration:none">Upgrade for unlimited →</a></div>
+<hr>
+<button class="btn btn-red" onclick="openAlertModal()"> <i class="ti ti-alert-triangle" style="font-size:18px"></i>
+Launch Emergency Audience Alert
+</button>
+</div>
+<!-- Stats Row -->
+<div class="grid3" style="margin-bottom:16px">
+<div class="card2" style="text-align:center">
+<div style="font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:1px;margin-bottom:6px">Email Access</div>
+<div style="font-family:'Syne',sans-serif;font-size:28px;font-weight:700;color:var(--green)">3,247</div>
+</div>
+<div class="card2" style="text-align:center">
+<div style="font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:1px;margin-bottom:6px">SMS / WhatsApp</div>
+<div style="font-family:'Syne',sans-serif;font-size:28px;font-weight:700;color:var(--teal)">1,891</div>
+</div>
+<div class="card2" style="text-align:center">
+<div style="font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:1px;margin-bottom:6px">Platforms</div>
+<div style="font-family:'Syne',sans-serif;font-size:28px;font-weight:700;color:var(--text)">4</div>
+</div>
+</div>
+<!-- Sharing Panel -->
+<div class="card">
+<div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;flex-wrap:wrap;gap:8px">
+<h3 style="font-size:16px;font-weight:700">Share Your WefollowBack Link</h3>
+<span class="badge badge-blue">Zero-Friction Sharing</span>
+</div>
+<div class="link-row">
+<div class="platform-icon" style="background:#010101;color:#fff">TK</div>
+<div style="flex:1;min-width:120px">
+<div style="font-size:13px;font-weight:500;margin-bottom:2px">TikTok</div>
+<div class="link-url">wefollowback.com/u/alexcreator?src=tiktok</div>
+</div>
+<button class="btn btn-copy" id="copy1"
+onclick="copyLink(this,'wefollowback.com/u/alexcreator?src=tiktok')">Copy</button>
+</div>
+<div class="link-row">
+<div class="platform-icon" style="background:linear-gradient(135deg,#833AB4,#E1306C);color:#fff">IG</div>
+<div style="flex:1;min-width:120px">
+<div style="font-size:13px;font-weight:500;margin-bottom:2px">Instagram</div>
+<div class="link-url">wefollowback.com/u/alexcreator?src=instagram</div>
+</div>
+<button class="btn btn-copy" id="copy2"
+onclick="copyLink(this,'wefollowback.com/u/alexcreator?src=instagram')">Copy</button>
+</div>
+<div class="link-row">
+<div class="platform-icon" style="background:#FF0000;color:#fff">YT</div>
+<div style="flex:1;min-width:120px">
+<div style="font-size:13px;font-weight:500;margin-bottom:2px">YouTube</div>
+<div class="link-url">wefollowback.com/u/alexcreator?src=youtube</div> </div>
+<button class="btn btn-copy" id="copy3"
+onclick="copyLink(this,'wefollowback.com/u/alexcreator?src=youtube')">Copy</button>
+</div>
+<div class="link-row" style="background:rgba(0,214,143,0.04);border-radius:10px;padding:12px;border:1px dashed rgba(0,214,143,0.3);margin-top:8px">
+<div class="platform-icon" style="background:var(--navy3);color:var(--green);font-size:20px">+</div>
+<div style="flex:1">
+<div style="font-size:13px;font-weight:500">Add Custom Platform</div>
+<div style="font-size:12px;color:var(--muted)">Twitch, X/Twitter, Substack...</div>
+</div>
+<button class="btn btn-outline" style="font-size:13px;padding:8px 14px">Add
+Link</button>
+</div>
+</div>
+</div>
+<!-- ═══════════════ AUDIENCE ═══════════════ -->
 <div id="page-audience" class="page">
-  <div style="display: flex; align-items:center; justify-content: space-between; margin-bottom:16px; flex-wrap: wrap; gap: 12px;">
-    <h2 style="font-size:20px; font-weight:700">Audience Data Asset</h2>
-    <button class="btn btn-outline" style="font-size:13px;padding: 8px 16px">
-      Request Analytics (CSV)
-    </button>
-  </div>
-  <div class="card" style="margin-bottom:12px;padding:12px 16px; border-color:rgba(13,206,188,0.3)">
-    <div style="display: flex; gap:8px;align-items:flex-start">
-      <div style="font-size:13px;color:var(--muted); line-height:1.5">For your audience's privacy, raw contact data is only used during approved emergency alerts. The export button provides abstracted analytics only.</div>
-    </div>
-  </div>
-  <div class="card" style="padding:0;overflow:hidden">
-    <div class="table-responsive">
-      <table>
-        <thead>
-          <tr>
-            <th>Display Name</th>
-            <th>Masked ID</th>
-            <th>Platform</th>
-            <th>Email</th>
-            <th>SMS/WA</th>
-            <th>Date Secured</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td><div style="font-weight:500">@jamesmwangi</div></td>
-            <td><span style="font-family:monospace;color:var(--muted)">UID-***8821</span></td>
-            <td><span class="badge badge-blue">TikTok</span></td>
-            <td style="color: var(--teal); font-size:18px">✓</td>
-            <td style="color:var(--teal); font-size:18px">✓</td>
-            <td style="color:var(--muted); font-size:12px">Jun 1, 2025</td>
-          </tr>
-          <tr>
-            <td><div style="font-weight:500">@laracroft_ng</div></td>
-            <td><span style="font-family:monospace;color:var(--muted)">UID-***4419</span></td>
-            <td><span class="badge badge-green">Instagram</span></td>
-            <td style="color:var(--teal); font-size:18px">✓</td>
-            <td style="color:var(--muted); font-size:13px">Email only</td>
-            <td style="color:var(--muted); font-size:12px">May 28, 2025</td>
-          </tr>
-          <tr>
-            <td><div style="font-weight:500">@techbro_ade</div></td>
-            <td><span style="font-family:monospace;color:var(--muted)">UID-***7701</span></td>
-            <td><span class="badge badge-red">YouTube</span></td>
-            <td style="color:var(--teal); font-size:18px">✓</td>
-            <td style="color:var(--teal); font-size:18px">✓</td>
-            <td style="color:var(--muted); font-size:12px">May 25, 2025</td>
-          </tr>
-          <tr>
-            <td><div style="font-weight:500">@chidinma_creates</div></td>
-            <td><span style="font-family:monospace;color:var(--muted)">UID-***2241</span></td>
-            <td><span class="badge badge-blue">TikTok</span></td>
-            <td style="color:var(--teal); font-size:18px">✓</td>
-            <td style="color:var(--muted); font-size:13px">Email only</td>
-            <td style="color:var(--muted); font-size:12px">May 22, 2025</td>
-          </tr>
-          <tr>
-            <td><div style="font-weight:500">@solomonbeatz</div></td>
-            <td><span style="font-family:monospace;color:var(--muted)">UID-***9930</span></td>
-            <td><span class="badge badge-green">Instagram</span></td>
-            <td style="color:var(--teal); font-size:18px">✓</td>
-            <td style="color:var(--teal); font-size:18px">✓</td>
-            <td style="color:var(--muted); font-size:12px">May 20, 2025</td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-    <div style="padding:12px 16px; border-top:1px solid var(--border); font-size:12px; color:var(--muted); display: flex; justify-content:space-between">
-      <span>Showing 5 of 3,247 records</span>
-      <span style="color:var(--teal); cursor:pointer">Load more →</span>
-    </div>
-  </div>
+<div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;flex-wrap:wrap;gap:12px">
+<h2 style="font-size:20px;font-weight:700">Audience Data Asset</h2>
+<button class="btn btn-outline" style="font-size:13px;padding:8px 16px">
+<i class="ti ti-download" style="font-size:15px"></i>
+Request Analytics (CSV)
+</button>
 </div>
-
+<div class="card" style="margin-bottom:12px;padding:12px 16px;border-color:rgba(13,206,188,0.3)">
+<div style="display:flex;gap:8px;align-items:flex-start">
+<i class="ti ti-shield-lock" style="color:var(--teal);font-size:18px;margin-top:1px"></i>
+<div style="font-size:13px;color:var(--muted);line-height:1.5">For your audience's
+privacy, raw contact data is only used during approved emergency alerts. The export button
+provides abstracted analytics only.</div>
+</div>
+</div>
+<div class="card" style="padding:0;overflow:hidden">
+<div class="table-responsive">
+<table>
+<thead>
+<tr>
+<th>Display Name</th>
+<th>Masked ID</th>
+<th>Platform</th>
+<th>Email</th>
+<th>SMS/WA</th>
+<th>Date Secured</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><div style="font-weight:500">@jamesmwangi</div></td>
+<td><span style="font-family:monospace;color:var(--muted)">UID-***8821</span></td>
+<td><span class="badge badge-blue">TikTok</span></td>
+<td style="color:var(--green);font-size:18px">✓</td>
+<td style="color:var(--green);font-size:18px">✓</td>
+<td style="color:var(--muted);font-size:12px">Jun 1, 2025</td> </tr>
+<tr>
+<td><div style="font-weight:500">@laracroft_ng</div></td>
+<td><span style="font-family:monospace;color:var(--muted)">UID-***4419</span></td>
+<td><span class="badge badge-green">Instagram</span></td>
+<td style="color:var(--green);font-size:18px">✓</td>
+<td style="color:var(--muted);font-size:13px">Email only</td>
+<td style="color:var(--muted);font-size:12px">May 28, 2025</td>
+</tr>
+<tr>
+<td><div style="font-weight:500">@techbro_ade</div></td>
+<td><span style="font-family:monospace;color:var(--muted)">UID-***7703</span></td>
+<td><span class="badge badge-red"
+style="background:rgba(255,59,59,0.1);color:#FF6B6B;border-color:rgba(255,59,59,0.3)">YouTube</span></td>
+<td style="color:var(--green);font-size:18px">✓</td>
+<td style="color:var(--green);font-size:18px">✓</td>
+<td style="color:var(--muted);font-size:12px">May 25, 2025</td>
+</tr>
+<tr>
+<td><div style="font-weight:500">@chidinma_creates</div></td>
+<td><span style="font-family:monospace;color:var(--muted)">UID-***2241</span></td>
+<td><span class="badge badge-blue">TikTok</span></td>
+<td style="color:var(--green);font-size:18px">✓</td>
+<td style="color:var(--muted);font-size:13px">Email only</td>
+<td style="color:var(--muted);font-size:12px">May 22, 2025</td>
+</tr>
+<tr>
+<td><div style="font-weight:500">@solomonbeatz</div></td>
+<td><span style="font-family:monospace;color:var(--muted)">UID-***9930</span></td>
+<td><span class="badge badge-green">Instagram</span></td>
+<td style="color:var(--green);font-size:18px">✓</td>
+<td style="color:var(--green);font-size:18px">✓</td>
+<td style="color:var(--muted);font-size:12px">May 20, 2025</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div style="padding:12px 16px;border-top:1px solid var(--border);font-size:12px;color:var(--muted);display:flex;justify-content:space-between">
+<span>Showing 5 of 3,247 records</span>
+<span style="color:var(--green);cursor:pointer">Load more →</span>
+</div>
+</div>
+</div>
+<!-- ═══════════════ ALERT COMPOSER ═══════════════ -->
 <div id="page-alert" class="page">
-  <h2 style="font-size:20px; font-weight: 700; margin-bottom:4px">Emergency Communication</h2>
-  <p style="font-size:14px;color: var(--muted); margin-bottom:20px">Send an alert to your secured audience across all channels</p>
-  <div class="grid2" style="margin-bottom: 16px">
-    <div class="card2">
-      <div style="font-size:11px;color:var(--muted); text-transform:uppercase; letter-spacing:1px;margin-bottom:8px">Reach</div>
-      <div style="font-family: 'Syne', sans-serif; font-size:24px;font-weight:700;color:var(--teal)">3,247</div>
-      <div style="font-size:12px; color:var(--muted)">total recipients</div>
-    </div>
-    <div class="card2">
-      <div style="font-size:11px; color:var(--muted); text-transform:uppercase; letter-spacing:1px; margin-bottom:8px">Est. SMS Cost</div>
-      <div style="font-family: 'Syne', sans-serif; font-size:24px;font-weight:700;color:var(--red)">$283.50</div>
-      <div style="font-size:12px; color:var(--muted)">1,890 SMS x $0.15</div>
-    </div>
-  </div>
-  <div class="card">
-    <h3 style="font-size:15px;font-weight:600; margin-bottom:14px">Compose Message</h3>
-    <div class="tab-bar">
-      <button class="msg-tab active" onclick="switchMsgTab(this, 'email-compose')">Email</button>
-      <button class="msg-tab" onclick="switchMsgTab(this, 'sms-compose')">SMS</button>
-      <button class="msg-tab" onclick="switchMsgTab(this, 'wa-compose')">WhatsApp</button>
-    </div>
-    <div id="email-compose">
-      <input type="text" placeholder="Subject: I've moved here's where to find me" style="margin-bottom:10px">
-      <textarea rows="5" id="email-body">Hey! My main account got suspended, but I saved our connection for exactly this moment. You can find me at my new account here: [NEW LINK]. Thank you for your support it means everything.</textarea>
-    </div>
-    <div id="sms-compose" style="display:none">
-      <textarea rows="4" id="sms-body" oninput="updateSMSCounter()" maxlength="160">Hey it's Alex! Account suspended. Find me at: [LINK] thanks for being here!</textarea>
-      <div class="char-counter"><span id="sms-count">78</span> / 160 characters</div>
-    </div>
-    <div id="wa-compose" style="display:none">
-      <textarea rows="5">Important Update from Alex Creator*&#10;My main account was suspended. Don't worry I saved your contact for exactly this moment!&#10;Find me at my new home: [NEW LINK]&#10;Thank you for your support!</textarea>
-    </div>
-    <div style="display: flex; gap:10px;margin-top:16px">
-      <button class="btn btn-red" onclick="openAlertModal()" style="flex:1">Send Emergency Alert</button>
-    </div>
-  </div>
+<h2 style="font-size:20px;font-weight:700;margin-bottom:4px">Emergency Communication</h2>
+<p style="font-size:14px;color:var(--muted);margin-bottom:20px">Send an alert to your
+secured audience across all channels</p>
+<div class="grid2" style="margin-bottom:16px">
+<div class="card2">
+<div style="font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:1px;margin-bottom:8px">Reach</div>
+<div style="font-family:'Syne',sans-serif;font-size:24px;font-weight:700;color:var(--green)">3,247</div>
+<div style="font-size:12px;color:var(--muted)">total recipients</div>
 </div>
-
+<div class="card2"> <div style="font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:1px;margin-bottom:8px">Est. SMS Cost</div>
+<div style="font-family:'Syne',sans-serif;font-size:24px;font-weight:700;color:var(--red)">$283.50</div>
+<div style="font-size:12px;color:var(--muted)">1,890 SMS × $0.15</div>
+</div>
+</div>
+<div class="card">
+<h3 style="font-size:15px;font-weight:600;margin-bottom:14px">Compose Message</h3>
+<div class="tab-bar">
+<button class="msg-tab active" onclick="switchMsgTab(this,'email-compose')">Email</button>
+<button class="msg-tab" onclick="switchMsgTab(this,'sms-compose')">SMS</button>
+<button class="msg-tab" onclick="switchMsgTab(this,'wa-compose')">WhatsApp</button>
+</div>
+<div id="email-compose">
+<input type="text" placeholder="Subject: I've moved — here's where to find me"
+style="margin-bottom:10px">
+<textarea rows="5" id="email-body" oninput="updateCounter()">Hey! My main account got
+suspended, but I saved our connection for exactly this moment. You can find me at my new
+account here: [NEW LINK]. Thank you for your support — it means everything.</textarea>
+</div>
+<div id="sms-compose" style="display:none">
+<textarea rows="4" id="sms-body" oninput="updateSMSCounter()" maxlength="160">Hey it's
+Alex! Account suspended. Find me at: [LINK] — thanks for being here!</textarea>
+<div class="char-counter"><span id="sms-count">78</span> / 160 characters</div>
+</div>
+<div id="wa-compose" style="display:none">
+<textarea rows="5"> *Important Update from Alex Creator*
+My main account was suspended. Don't worry — I saved your contact for exactly this moment!
+Find me at my new home: [NEW LINK]
+Thank you for your support! </textarea>
+</div>
+<div style="display:flex;gap:10px;margin-top:16px">
+<button class="btn btn-red" onclick="openAlertModal()" style="flex:1">
+<i class="ti ti-send" style="font-size:16px"></i>
+Send Emergency Alert
+</button>
+</div>
+</div>
+</div>
+<!-- ═══════════════ SYNC PAGE (AUDIENCE VIEW) ═══════════════ -->
 <div id="page-sync" class="page">
-  <div id="sync-returning" class="step active">
-    <div class="sync-hero">
-      <div class="creator-avatar">AC</div>
-      <h1>Welcome back, James!<br><span style="color:var(--teal)">Secure your connection</span> to Alex Creator instantly.</h1>
-      <p style="margin-top: 10px">One tap. Your support is backed up forever.</p>
-    </div>
-    <div class="card" style="max-width: 440px; margin:0 auto">
-      <button class="btn btn-green" style="width:100%; justify-content:center; padding: 18px; font-size:16px; border-radius: 12px" onclick="showSyncStep('sync-success')">
-        Sync My Data to Alex's Backup
-      </button>
-      <div style="text-align:center;margin-top: 14px; font-size:13px;color:var(--muted)">Not you? <a href="#" onclick="showSyncStep('sync-new'); return false" style="color:var(--teal); text-decoration:none">Sign in as new user</a></div>
-    </div>
-  </div>
-
-  <div id="sync-new" class="step" style="max-width:440px;margin:0 auto">
-    <div class="sync-hero" style="padding:30px 0 20px">
-      <div class="creator-avatar">AC</div>
-      <h1 style="font-size:22px">Your support is valuable.</h1>
-      <p>Let me secure our connection in case my main account gets suspended.</p>
-    </div>
-    <div class="card">
-      <button class="oauth-btn oauth-tiktok" onclick="showSyncStep('sync-optin')">
-        <span style="font-size:18px; font-weight:900">TK</span> Secure My Connection with TikTok
-      </button>
-      <button class="oauth-btn oauth-ig" onclick="showSyncStep('sync-optin')">
-        <span>IG</span> Secure My Connection with Instagram
-      </button>
-      <button class="oauth-btn oauth-yt" onclick="showSyncStep('sync-optin')">
-        <span>YT</span> Secure My Connection with YouTube
-      </button>
-    </div>
-  </div>
-
-  <div id="sync-optin" class="step" style="max-width:440px;margin:0 auto">
-    <div class="sync-hero" style="padding:30px 0 20px">
-      <h1 style="font-size:22px">One last thing...</h1>
-      <p>Mind if I text you directly on WhatsApp/SMS if I lose my main account?</p>
-    </div>
-    <div class="card">
-      <div style="display: flex; gap:10px;margin-bottom:12px">
-        <button class="opt-btn selected" onclick="showSyncStep('sync-phone')">Yes, text me.</button>
-        <button class="opt-btn" onclick="showSyncStep('sync-success')">No, email is fine.</button>
-      </div>
-    </div>
-  </div>
-
-  <div id="sync-phone" class="step" style="max-width: 440px; margin:0 auto">
-    <div class="sync-hero" style="padding:30px 0 20px">
-      <h1 style="font-size:22px">Enter your phone number</h1>
-      <p>For emergency contact only. We will <strong>never</strong> spam you.</p>
-    </div>
-    <div class="card">
-      <input type="tel" placeholder="+234 800 000 0000">
-      <button class="btn btn-green" style="width:100%; justify-content:center; padding:14px" onclick="showSyncStep('sync-success')">
-        Secure My Connection
-      </button>
-    </div>
-  </div>
-
-  <div id="sync-success" class="step" style="max-width: 440px;margin:0 auto">
-    <div class="sync-hero" style="padding: 40px 0 20px">
-      <div class="success-icon">✓</div>
-      <h1 style="font-size:24px;color:var(--teal)">Success!</h1>
-      <p style="margin-top:8px">Your connection to <strong>Alex Creator</strong> is secured. You'll always be able to find them.</p>
-    </div>
-    <div class="card" style="background: rgba(0,214,143,0.06); border-color:rgba(0,214,143,0.3); text-align: center;">
-      <div style="font-size:13px;color:var(--muted); margin-bottom:8px">Want this protection for your own favorite accounts?</div>
-      <button class="btn btn-green" style="padding:12px 24px;" onclick="showPage('pricing')">
-        Create Your Free WefollowBack Profile
-      </button>
-    </div>
-    <div style="text-align:center; margin-top:16px">
-      <a href="#" onclick="showSyncStep('sync-returning'); return false" style="font-size:12px; color:var(--muted); text-decoration:none">View another scenario</a>
-    </div>
-  </div>
+<div id="sync-returning" class="step active">
+<div class="sync-hero">
+<div class="creator-avatar">AC</div>
+<h1>Welcome back, James!<br><span style="color:var(--green)">Secure your
+connection</span> to Alex Creator instantly.</h1>
+<p style="margin-top:10px">One tap. Your support is backed up forever.</p>
 </div>
-
+<div class="card" style="max-width:440px;margin:0 auto">
+<button class="btn btn-green" style="width:100%;justify-content:center;padding:18px;font-size:16px;border-radius:12px" onclick="showSyncStep('sync-success')"> <i class="ti ti-shield-check" style="font-size:20px"></i>
+Sync My Data to Alex's Backup
+</button>
+<div style="text-align:center;margin-top:14px;font-size:13px;color:var(--muted)">Not you?
+<a href="#" onclick="showSyncStep('sync-new');return false" style="color:var(--green);text-decoration:none">Sign in as new user →</a></div>
+</div>
+</div>
+<div id="sync-new" class="step" style="max-width:440px;margin:0 auto">
+<div class="sync-hero" style="padding:30px 0 20px">
+<div class="creator-avatar">AC</div>
+<h1 style="font-size:22px">Your support is valuable.</h1>
+<p>Let me secure our connection in case my main account gets suspended.</p>
+</div>
+<div class="card">
+<button class="oauth-btn oauth-tiktok" onclick="showSyncStep('sync-optin')">
+<span style="font-size:18px;font-weight:900">TK</span>
+Secure My Connection with TikTok
+</button>
+<button class="oauth-btn oauth-ig" onclick="showSyncStep('sync-optin')">
+<span>IG</span>
+Secure My Connection with Instagram
+</button>
+<button class="oauth-btn oauth-yt" onclick="showSyncStep('sync-optin')">
+<span>YT</span>
+Secure My Connection with YouTube
+</button>
+</div>
+</div>
+<div id="sync-optin" class="step" style="max-width:440px;margin:0 auto">
+<div class="sync-hero" style="padding:30px 0 20px">
+<h1 style="font-size:22px">One last thing...</h1>
+<p>Mind if I text you directly on WhatsApp/SMS if I lose my main account?</p>
+</div>
+<div class="card">
+<div style="display:flex;gap:10px;margin-bottom:12px">
+<button class="opt-btn selected" onclick="showSyncStep('sync-phone')"> Yes, text
+me.</button>
+<button class="opt-btn" onclick="showSyncStep('sync-success')"> No, email is
+fine.</button>
+</div>
+</div>
+</div>
+<div id="sync-phone" class="step" style="max-width:440px;margin:0 auto">
+<div class="sync-hero" style="padding:30px 0 20px">
+<h1 style="font-size:22px">Enter your phone number</h1>
+<p>For emergency contact only. We will <strong>never</strong> spam you.</p>
+</div>
+<div class="card">
+<input type="tel" placeholder="+234 800 000 0000">
+<button class="btn btn-green" style="width:100%;justify-content:center;padding:14px"
+onclick="showSyncStep('sync-success')">
+<i class="ti ti-lock" style="font-size:16px"></i>
+Secure My Connection
+</button>
+</div>
+</div> <div id="sync-success" class="step" style="max-width:440px;margin:0 auto">
+<div class="sync-hero" style="padding:40px 0 20px">
+<div style="width:80px;height:80px;border-radius:50%;background:rgba(0,214,143,0.15);border:2px solid var(--green);display:flex;align-items:center;justify-content:center;margin:0 auto 20px;font-size:36px">✓</div>
+<h1 style="font-size:24px;color:var(--green)">Success!</h1>
+<p style="margin-top:8px">Your connection to <strong>Alex Creator</strong> is secured.
+You'll always be able to find them.</p>
+</div>
+<div class="card" style="background:rgba(0,214,143,0.06);border-color:rgba(0,214,143,0.3)">
+<div style="text-align:center;margin-bottom:14px">
+<div style="font-size:13px;color:var(--muted);margin-bottom:8px">Want this protection
+for your own favorite accounts?</div>
+<button class="btn btn-green" style="padding:12px 24px">
+<i class="ti ti-star" style="font-size:16px"></i>
+Create Your Free WefollowBack Profile
+</button>
+</div>
+</div>
+<div style="text-align:center;margin-top:16px">
+<a href="#" onclick="showSyncStep('sync-returning');return false" style="font-size:12px;color:var(--muted);text-decoration:none">← View another scenario</a>
+</div>
+</div>
+</div>
+<!-- ═══════════════ PRICING ═══════════════ -->
 <div id="page-pricing" class="page">
-  <h2 style="font-size:22px; font-weight:800; margin-bottom:4px">Simple, Transparent Pricing</h2>
-  <p style="font-size:14px;color:var(--muted); margin-bottom: 24px">Start free. Scale as your audience grows.</p>
-  <div class="grid3">
-    <div class="pricing-card">
-      <div style="font-size:12px;text-transform:uppercase; letter-spacing:1px;color:var(--muted); margin-bottom: 12px">Free</div>
-      <div class="price-big">$0</div>
-      <div class="price-period" style="margin-bottom:16px">forever</div>
-      <ul class="feature-list">
-        <li><span class="check">✓</span> 500 audience records</li>
-        <li><span class="check">✓</span> 4 platform links</li>
-        <li><span class="check">✓</span> Email alerts</li>
-        <li><span class="lock">✗</span> SMS / WhatsApp alerts</li>
-        <li><span class="lock">✗</span> Analytics export</li>
-        <li><span class="lock">✗</span> Custom platforms</li>
-      </ul>
-      <button class="btn btn-outline" style="width: 100%; justify-content:center; padding:12px">Get Started Free</button>
-    </div>
-    <div class="pricing-card" style="border-color:rgba(13,206,188,0.4)">
-      <div style="font-size:12px;text-transform:uppercase; letter-spacing:1px;color:var(--teal); margin-bottom: 12px">Micro</div>
-      <div class="price-big" style="color:var(--teal)">$5</div>
-      <div class="price-period" style="margin-bottom:16px">per month</div>
-      <ul class="feature-list">
-        <li><span class="check">✓</span> 5,000 audience records</li>
-        <li><span class="check">✓</span> Unlimited platform links</li>
-        <li><span class="check">✓</span> Email alerts</li>
-        <li><span class="lock">✗</span> SMS / WhatsApp alerts</li>
-        <li><span class="check">✓</span> Analytics export (CSV)</li>
-        <li><span class="check">✓</span> Custom platforms</li>
-      </ul>
-      <button class="btn" style="width:100%;justify-content:center;padding:12px;background:var(--teal);color:#001A0D;font-weight:600">Upgrade to Micro</button>
-    </div>
-    <div class="pricing-card featured">
-      <div class="popular-badge">Most Popular</div>
-      <div style="font-size:12px;text-transform:uppercase;letter-spacing:1px;color:var(--teal);margin-bottom:12px">Pro</div>
-      <div class="price-big">$20</div>
-      <div class="price-period" style="margin-bottom:16px">per month</div>
-      <ul class="feature-list">
-        <li><span class="check">✓</span> Unlimited records</li>
-        <li><span class="check">✓</span> Unlimited platform links</li>
-        <li><span class="check">✓</span> Email alerts</li>
-        <li><span class="check" style="color:var(--teal);font-weight:700">★</span> <strong>SMS + WhatsApp Alerts</strong></li>
-        <li><span class="check">✓</span> Premium Analytics</li>
-        <li><span class="check">✓</span> Priority Support</li>
-      </ul>
-      <button class="btn btn-green" style="width:100%;justify-content:center;padding:12px">Upgrade to Pro</button>
-    </div>
-  </div>
+<h2 style="font-size:22px;font-weight:800;margin-bottom:4px">Simple, Transparent
+Pricing</h2>
+<p style="font-size:14px;color:var(--muted);margin-bottom:24px">Start free. Scale as your
+audience insurance needs grow.</p>
+<div class="grid3">
+<!-- FREE -->
+<div class="pricing-card">
+<div style="font-size:12px;text-transform:uppercase;letter-spacing:1px;color:var(--muted);margin-bottom:12px">Free</div>
+<div class="price-big">$0</div>
+<div class="price-period" style="margin-bottom:16px">forever</div>
+<ul class="feature-list">
+<li><span class="check">✓</span> 500 audience records</li>
+<li><span class="check">✓</span> 4 platform links</li>
+<li><span class="check">✓</span> Email alerts</li>
+<li><span class="lock">✗</span> SMS / WhatsApp alerts</li>
+<li><span class="lock">✗</span> Analytics export</li>
+<li><span class="lock">✗</span> Custom platforms</li>
+</ul>
+<button class="btn btn-outline" style="width:100%;justify-content:center;padding:12px">Get Started Free</button>
 </div>
-
+<!-- MICRO -->
+<div class="pricing-card" style="border-color:rgba(13,206,188,0.4)">
+<div style="font-size:12px;text-transform:uppercase;letter-spacing:1px;color:var(--teal);margin-bottom:12px">Micro</div>
+<div class="price-big" style="color:var(--teal)">$5</div>
+<div class="price-period" style="margin-bottom:16px">per month</div>
+<ul class="feature-list">
+<li><span class="check">✓</span> 5,000 audience records</li> <li><span class="check">✓</span> Unlimited platform links</li>
+<li><span class="check">✓</span> Email alerts</li>
+<li><span class="lock">✗</span> SMS / WhatsApp alerts</li>
+<li><span class="check">✓</span> Analytics export (CSV)</li>
+<li><span class="check">✓</span> Custom platforms</li>
+</ul>
+<button class="btn" style="width:100%;justify-content:center;padding:12px;background:var(--teal);color:#001A0D;font-weight:600">Upgrade to
+Micro</button>
+</div>
+<!-- PRO -->
+<div class="pricing-card featured">
+<div class="popular-badge">Most Popular</div>
+<div style="font-size:12px;text-transform:uppercase;letter-spacing:1px;color:var(--green);margin-bottom:12px">Pro</div>
+<div class="price-big">$20</div>
+<div class="price-period" style="margin-bottom:16px">per month</div>
+<ul class="feature-list">
+<li><span class="check">✓</span> Unlimited records</li>
+<li><span class="check">✓</span> Unlimited platform links</li>
+<li><span class="check">✓</span> Email alerts</li>
+<li><span class="check" style="color:var(--green);font-weight:700">★</span>
+<strong>SMS + WhatsApp alerts</strong></li>
+<li><span class="check">✓</span> Analytics export (CSV)</li>
+<li><span class="check">✓</span> Priority support</li>
+</ul>
+<button class="btn btn-green" style="width:100%;justify-content:center;padding:12px">Upgrade to Pro</button>
+<div style="text-align:center;margin-top:10px;font-size:11px;color:var(--green)">Unlocks
+SMS/WhatsApp Emergency Alerts</div>
+</div>
+</div>
+</div>
+<!-- ═══════════════ RECOVERY PAGE ═══════════════ -->
 <div id="page-recovery" class="page">
-  <div class="card recovery">
-    <div class="success-icon">⏳</div>
-    <h2 style="font-size:24px; font-weight:800; margin-bottom:8px">System Integrity Check</h2>
-    <p style="color:var(--muted); font-size:14px; margin-bottom:24px">Secured sync state recovery verification countdown execution...</p>
-    <div class="countdown" id="countdown">3</div>
-    <button class="btn btn-outline" style="margin-top:24px" onclick="startCountdown()">Restart Simulation Execution</button>
-  </div>
+<div style="max-width:480px;margin:0 auto">
+<div class="card" style="text-align:center;padding:40px 30px">
+<div class="success-icon">✓</div>
+<h1 style="font-size:28px;font-weight:800;margin-bottom:10px">
+<span style="color:var(--green)">Success!</span> Your connection to<br>Alex Creator is
+restored.
+</h1>
+<p style="color:var(--muted);font-size:15px;margin-bottom:28px">You're being redirected
+to their new profile.</p>
+<div style="margin-bottom:24px">
+<div style="font-size:13px;color:var(--muted);margin-bottom:6px">Redirecting in</div>
+<div class="countdown" id="countdown">3</div>
+<div style="font-size:13px;color:var(--muted);margin-top:4px">seconds...</div>
 </div>
-
+<div style="background:rgba(0,214,143,0.06);border:1px solid
+rgba(0,214,143,0.25);border-radius:12px;padding:20px">
+<div style="font-size:14px;color:var(--muted);margin-bottom:12px">Enjoying
+WefollowBack? Let people know!</div>
+<button class="btn btn-green" style="width:100%;justify-content:center;padding:14px;font-size:15px">
+<i class="ti ti-share" style="font-size:17px"></i>
+Quick Post Thanks to WefollowBack! </button>
+<div style="font-size:11px;color:var(--subtle);margin-top:8px">Opens a pre-filled
+share prompt</div>
+</div>
+</div>
+<div style="text-align:center;margin-top:16px">
+<div style="font-size:13px;color:var(--muted)">Want this for your own account?</div>
+<button class="btn btn-outline" style="margin-top:10px;padding:10px 24px"
+onclick="showPage('pricing')">Create Your Free Profile →</button>
+</div>
+</div>
+</div>
+<!-- ALERT CONFIRM MODAL -->
 <div class="modal-overlay" id="alertModal">
-  <div class="modal">
-    <h3>Confirm Emergency Alert</h3>
-    <p style="font-size:14px;color:var(--muted);margin-top:6px">You're about to send an alert to your entire secured audience.</p>
-    <div class="cost-highlight">
-      <div style="font-size:13px;color:var(--muted);margin-bottom:6px">Estimated Total Cost</div>
-      <div class="cost-amount">$283.50</div>
-      <div style="font-size:13px;color:var(--muted);margin-top:4px">1,890 SMS × $0.15 each</div>
-    </div>
-    <div style="display: flex; gap: 10px; margin-top: 20px;">
-      <button class="btn btn-outline" style="flex: 1; justify-content: center;" onclick="closeAlertModal()">Cancel</button>
-      <button class="btn btn-red" style="flex: 1; justify-content: center; padding: 12px;" onclick="closeAlertModal(); alert('Alert Sent Successfully!');">Confirm & Send</button>
-    </div>
-  </div>
+<div class="modal">
+<h3>Confirm Emergency Alert</h3>
+<p style="font-size:14px;color:var(--muted);margin-top:6px">You're about to send an alert
+to your entire secured audience.</p>
+<div class="cost-highlight">
+<div style="font-size:13px;color:var(--muted);margin-bottom:6px">Estimated Total
+Cost</div>
+<div class="cost-amount">$283.50</div>
+<div style="font-size:13px;color:var(--muted);margin-top:4px">1,890 SMS × $0.15
+each</div>
 </div>
-
+<div style="background:var(--card2);border-radius:10px;padding:14px;margin-bottom:20px">
+<div style="display:flex;justify-content:space-between;font-size:13px;padding:4px
+0;color:var(--muted)"><span>Email alerts</span><span style="color:var(--green)">3,247
+recipients — Free</span></div>
+<div style="display:flex;justify-content:space-between;font-size:13px;padding:4px
+0;color:var(--muted)"><span>SMS + WhatsApp</span><span style="color:var(--red)">1,890 × $0.15
+= $283.50</span></div>
+</div>
+<div style="display:flex;gap:10px">
+<button class="btn btn-outline" style="flex:1;justify-content:center"
+onclick="closeAlertModal()">Cancel</button>
+<button class="btn btn-red" style="flex:2;padding:12px" onclick="closeAlertModal()">
+<i class="ti ti-send" style="font-size:16px"></i>
+Confirm & Send Alert
+</button>
+</div>
+</div>
+</div>
 <script>
-function showPage(pageId) {
-  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
-  document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
-  
-  const targetPage = document.getElementById('page-' + pageId);
-  if(targetPage) targetPage.classList.add('active');
-  
-  const targetTab = Array.from(document.querySelectorAll('.tab')).find(t => t.getAttribute('onclick').includes(pageId));
-  if(targetTab) targetTab.classList.add('active');
+function showPage(id){
+document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
+document.getElementById('page-'+id).classList.add('active');
+document.getElementById('page-'+id).classList.add('slide-in');
+const tabs=document.querySelectorAll('.tab');
+const map={dashboard:0,audience:1,alert:2,sync:3,pricing:4,recovery:5};
+if(map[id]!==undefined) tabs[map[id]].classList.add('active');
+if(id==='recovery') startCountdown();
 }
-
-function copyLink(btn, text) {
-  navigator.clipboard.writeText(text).then(() => {
-    const originalText = btn.textContent;
-    btn.textContent = 'Copied!';
-    btn.classList.add('copied');
-    setTimeout(() => {
-      btn.textContent = originalText;
-      btn.classList.remove('copied');
-    }, 2000);
-  }).catch(() => {
-    alert('Link text layout copy failed. Manual link: ' + text);
-  });
+function copyLink(btn, url){
+btn.textContent='Copied!';
+btn.classList.add('copied'); setTimeout(()=>{btn.textContent='Copy';btn.classList.remove('copied')},2000);
 }
-
 function openAlertModal(){document.getElementById('alertModal').classList.add('open')}
 function closeAlertModal(){document.getElementById('alertModal').classList.remove('open')}
-
 function switchMsgTab(btn, id){
-  document.querySelectorAll('.msg-tab').forEach(t=>t.classList.remove('active'));
-  btn.classList.add('active');
-  ['email-compose','sms-compose','wa-compose'].forEach(i=>{
-    const el = document.getElementById(i);
-    if(el) el.style.display = i === id ? 'block' : 'none';
-  });
+document.querySelectorAll('.msg-tab').forEach(t=>t.classList.remove('active'));
+btn.classList.add('active');
+['email-compose','sms-compose','wa-compose'].forEach(i=>{
+document.getElementById(i).style.display=i===id?'block':'none';
+});
 }
-
 function showSyncStep(id){
-  document.querySelectorAll('.step').forEach(s=>s.classList.remove('active'));
-  const targetStep = document.getElementById(id);
-  if(targetStep) targetStep.classList.add('active');
+document.querySelectorAll('.step').forEach(s=>s.classList.remove('active'));
+document.getElementById(id).classList.add('active');
 }
-
 function updateSMSCounter(){
-  const v=document.getElementById('sms-body').value;
-  document.getElementById('sms-count').textContent=v.length;
+const v=document.getElementById('sms-body').value;
+document.getElementById('sms-count').textContent=v.length;
 }
-
 let countdownTimer;
 function startCountdown(){
-  clearInterval(countdownTimer);
-  let n=3;
-  document.getElementById('countdown').textContent=n;
-  countdownTimer=setInterval(()=>{
-    n--;
-    document.getElementById('countdown').textContent=n;
-    if(n <= 0) {
-      clearInterval(countdownTimer);
-      alert("Recovery System Check State Verification Simulation Run Complete!");
-    }
-  },1000);
+clearInterval(countdownTimer);
+let n=3;
+document.getElementById('countdown').textContent=n;
+countdownTimer=setInterval(()=>{
+n--;
+document.getElementById('countdown').textContent=n;
+if(n<=0){clearInterval(countdownTimer);document.getElementById('countdown').textContent=' ✓';}
+},1000);
 }
 </script>
 </body>
